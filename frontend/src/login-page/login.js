@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
 const Login = (props) => {
@@ -9,12 +10,12 @@ const Login = (props) => {
 
   const navigate = useNavigate();
 
-  const onButtonClick = () => {
+  const onButtonClick = async () => {
     setEmailError('');
     setPasswordError('');
 
-    if ("" == email) {
-      setEmailError("Pleases enter your email.");
+    if ("" === email) {
+      setEmailError("Please enter your email.");
       return;
     }
 
@@ -28,15 +29,24 @@ const Login = (props) => {
       return;
     }
 
-    if (password.length < 7) {
-      setPasswordError("The password must be 8 characters or longer");
-      return;
+    // send to nodejs server to check the db for account
+    try {
+      // Send POST request with email and password in the body
+      const response = await axios.post('http://localhost:5000/login', { email, password });
+
+      if (response.status === 200) {
+        alert("Login successful!");
+        navigate("/home"); // Redirect on successful login
+      } else {
+        alert("User not registered.");
+      }
+    } catch (error) {
+      if (error.response) {
+        alert(error.response.data.msg || "An error occurred during login.");
+      } else {
+        alert("No response from the server.");
+      }
     }
-
-    setEmail(email);
-    setPassword(password);
-
-    //send to nodejs server to check the db for account then setLoggedIn(true);
   };
 
   return (

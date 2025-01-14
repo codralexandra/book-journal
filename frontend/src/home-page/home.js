@@ -1,13 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import "./home.css";
 
 const Home = (props) => {
   const { loggedIn, email } = props;
-  const {registered} = props;
   const navigate = useNavigate();
 
-  const onButtonClick = () => {
-    //empty
+  const handleNavigate = (path) => {
+    navigate(path);
   };
 
   return (
@@ -15,12 +15,11 @@ const Home = (props) => {
       <div className={"titleContainer"}>
         <div>Welcome!</div>
       </div>
-      <div>This is the home page.</div>
       <div className={"buttonContainer"}>
         <input
           className={"inputButton"}
           type="button"
-          onClick={onButtonClick}
+          onClick={() => handleNavigate("/register")}
           value="Register"
         />
       </div>
@@ -28,7 +27,7 @@ const Home = (props) => {
         <input
           className={"inputButton"}
           type="button"
-          onClick={onButtonClick}
+          onClick={() => loggedIn ? handleNavigate("/") : handleNavigate("/login")}
           value={loggedIn ? "Log out" : "Log in"}
         />
         {loggedIn ? <div>Your email address is {email}</div> : <div />}

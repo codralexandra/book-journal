@@ -14,7 +14,7 @@ const Register = (props) => {
     setEmailError('');
     setPasswordError('');
 
-    if ("" == email) {
+    if ("" === email) {
       setEmailError("Pleases enter your email.");
       return;
     }
@@ -37,11 +37,12 @@ const Register = (props) => {
     setEmail(email);
     setPassword(password);
 
+    //send to backend to check db for account then setLoggedIn(true);
     try {
         const response = await axios.post('http://localhost:5000/register', { email, password });
   
         if (response.status === 201) {
-          alert("Registration successful! You can now log in.");
+          //Send user to login route
           navigate("/login");
         }
       } catch (error) {

@@ -45,13 +45,38 @@ app.post("/register", async (req, res) => {
     await newUser.save();
     res.status(201).json({ msg: "User created!" });
   } catch (err) {
-    console.error("Erorr registering user:", error);
+    console.error("Error registering user:", err);
     res.status(500).json({ message: "Server error" });
   }
 });
 
-//LOGIN ROUTE
+// LOGIN ROUTE
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
 
+  if (!email || !password) {
+    return res.status(400).json({ msg: "Email and password are required!" });
+  }
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ msg: "User doesn't exist!" });
+    }
+
+    const isMatch = await bycrpt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ msg: "Invalid email or password!" });
+    }
+
+    res.status(200).json({ msg: "User logged in successfully!" });
+  } catch (err) {
+    console.error("Error during login:", err);
+    res.status(500).json({ msg: "Server error" });
+  }
+});
+
+// Serve static files and frontend in production
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, "../frontend/build")));
