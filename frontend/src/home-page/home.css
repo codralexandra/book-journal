@@ -1,5 +1,95 @@
-.titleContainer{
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
+.mainContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(210, 210, 210);
+  height: 100vh;
+  padding: 20px;
+}
+
+.contentContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: white;
+  border-radius: 15px;
+  padding: 50px;
+  width: 70%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.titleContainer {
+  font-size: 50px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.inputButton {
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #67c06f;
+  color: white;
+  transition: background-color 0.3s;
+  width:25%;
+}
+
+.inputButton:hover {
+  background-color: #447949;
+}
+
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+}
+
+.welcomeImage {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.errorLabel {
+  color: red;
+  font-weight: bold;
+  font-size: 14px;
+  margin: 5px;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+input{
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width:100%px;
+}
+
+.linkButton{
+    color: #9d9d9d;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.linkButton:hover{
+    color: #4b4b4b;
 }

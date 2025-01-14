@@ -76,7 +76,6 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// Serve static files and frontend in production
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, "../frontend/build")));
