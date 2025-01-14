@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
+
+import "../assets/style.css";
+import "./register.css";
 
 const Register = (props) => {
   const [email, setEmail] = useState("");
@@ -11,8 +14,8 @@ const Register = (props) => {
   const navigate = useNavigate();
 
   const onButtonClick = async () => {
-    setEmailError('');
-    setPasswordError('');
+    setEmailError("");
+    setPasswordError("");
 
     if ("" === email) {
       setEmailError("Pleases enter your email.");
@@ -39,54 +42,64 @@ const Register = (props) => {
 
     //send to backend to check db for account then setLoggedIn(true);
     try {
-        const response = await axios.post('http://localhost:5000/register', { email, password });
-  
-        if (response.status === 201) {
-          //Send user to login route
-          navigate("/login");
-        }
-      } catch (error) {
-        if (error.response) {
-          alert(error.response.data.message || "An error occurred during registration.");
-        } else {
-          alert("No response from the server.");
-        }
+      const response = await axios.post("http://localhost:5000/register", {
+        email,
+        password,
+      });
+
+      if (response.status === 201) {
+        //Send user to login route
+        navigate("/login");
       }
+    } catch (error) {
+      if (error.response) {
+        alert(
+          error.response.data.message ||
+            "An error occurred during registration."
+        );
+      } else {
+        alert("No response from the server.");
+      }
+    }
   };
 
   return (
     <div className={"mainContainer"}>
-      <div className={"titleContainer"}>
-        <div>Register</div>
-      </div>
-      <br />
-      <div className={"inputContainer"}>
-        <input
-          value={email}
-          placeholder="Enter your email here"
-          onChange={(ev) => setEmail(ev.target.value)}
-          className={"inputBox"}
-        />
-        <label className="errorLabel">{emailError}</label>
-      </div>
-      <br />
-      <div className={"inputContainer"}>
-        <input
-          value={password}
-          placeholder="Enter your password here"
-          onChange={(ev) => setPassword(ev.target.value)}
-          className={"inputBox"}
-        />
-        <label className="errorLabel">{passwordError}</label>
-      </div>
-      <br />
-      <div className={"inputContainer"}>
-        <input
-          className={"inputButton"}
-          type="button"
-          onClick={onButtonClick}
-          value={"Register"}
-        />
+      <div className="registerPage">
+        <div className="contentContainer">
+          <div className={"titleContainer"}>
+            <div>Sign up</div>
+          </div>
+          <br />
+          <div className={"inputContainer"}>
+            <input
+              value={email}
+              placeholder="Enter your email here"
+              onChange={(ev) => setEmail(ev.target.value)}
+              className={"inputBox"}
+            />
+            <label className="errorLabel">{emailError}</label>
+          </div>
+          <br />
+          <div className={"inputContainer"}>
+            <input
+              value={password}
+              placeholder="Enter your password here"
+              onChange={(ev) => setPassword(ev.target.value)}
+              className={"inputBox"}
+            />
+            <label className="errorLabel">{passwordError}</label>
+          </div>
+          <br />
+          <div className={"inputContainer"}>
+            <input
+              className={"inputButton"}
+              type="button"
+              onClick={onButtonClick}
+              value={"Register"}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

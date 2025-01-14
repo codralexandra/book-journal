@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import "./home.css";
+
+import "../assets/style.css";
 
 import welcomeImage from "../assets/welcome-image.png";
 
@@ -97,7 +98,7 @@ const Home = (props) => {
               value="Log in"
             />
             <Link to="/register" className="linkButton">
-              Register instead
+              Sign up
             </Link>
           </div>
         </div>

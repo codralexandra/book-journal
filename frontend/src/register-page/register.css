@@ -1,0 +1,12 @@
+.registerPage .contentContainer {
+    position: relative;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    max-width: 1000px;
+}
+
+.registerPage .inputButton{
+    width: 100%;
+}
