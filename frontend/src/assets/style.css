@@ -37,14 +37,14 @@
   cursor: pointer;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #67c06f;
+  background-color: #8fa493;
   color: white;
   transition: background-color 0.3s;
   width:25%;
 }
 
 .inputButton:hover {
-  background-color: #447949;
+  background-color: #59675b;
 }
 
 .imageContainer {
