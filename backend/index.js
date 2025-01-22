@@ -1,9 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const bycrpt = require("bcryptjs");
-const User = require("./models/User");
+const bcrypt = require("bcryptjs");
+const UserSchema = require("./schemas/UserSchema");
 const path = require("path");
 const cors = require("cors");
+
+const User = require("./models/User");
 
 require("dotenv").config();
 
@@ -21,55 +23,68 @@ mongoose
     console.error("MongoDB connection error: ", err);
   });
 
-//REGISTER ROUTE
+// REGISTER ROUTE
 app.post("/register", async (req, res) => {
-  const { email, password } = req.body;
-
-  if (!email || !password) {
-    return res.status(400).json({ msg: "Email and password are required!" });
-  }
+  const { username, email, password } = req.body;
 
   try {
-    const existingUser = await User.findOne({ email });
+    let existingUser = await UserSchema.findOne({ username });
     if (existingUser) {
-      return res.status(400).json({ msg: "Email already exists!" });
+      return res.status(400).json({ msg: "Username already exists!" });
     }
 
-    const hashedPassword = await bycrpt.hash(password, 10);
+    existingUser = await UserSchema.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ msg: "Email already registered!" });
+    }
 
-    const newUser = new User({
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUserSchema = new UserSchema({
+      username,
       email,
       password: hashedPassword,
     });
 
-    await newUser.save();
-    res.status(201).json({ msg: "User created!" });
+    await newUserSchema.save();
+    res.status(201).json({ msg: "User created successfully!" });
   } catch (err) {
     console.error("Error registering user:", err);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ msg: "Server error" });
   }
 });
 
 // LOGIN ROUTE
 app.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-
-  if (!email || !password) {
-    return res.status(400).json({ msg: "Email and password are required!" });
-  }
+  const { username, email, password } = req.body;
 
   try {
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(400).json({ msg: "User doesn't exist!" });
+    const findBy = username
+      ? { username }
+      : email
+      ? { email }
+      : null;
+
+    if (!findBy) {
+      return res.status(400).json({ msg: "Username or email is required!" });
     }
 
-    const isMatch = await bycrpt.compare(password, user.password);
+    const user = await UserSchema.findOne(findBy);
+    if (!user) {
+      return res.status(400).json({ msg: "User does not exist!" });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ msg: "Invalid email or password!" });
     }
 
-    res.status(200).json({ msg: "User logged in successfully!" });
+    res.status(200).json({ 
+      msg: "User logged in successfully!",
+      user: { username: user.username, email: user.email },
+    });
+
+    console.log(`User ${username || email} logged in!`);
   } catch (err) {
     console.error("Error during login:", err);
     res.status(500).json({ msg: "Server error" });

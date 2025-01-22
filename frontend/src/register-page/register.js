@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import User from "../models/User.js"
 import axios from "axios";
 
 import "../assets/style.css";
@@ -8,48 +9,51 @@ import "./register.css";
 const Register = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [usernameError, setUsernameError] = useState("");
 
   const navigate = useNavigate();
 
   const onButtonClick = async () => {
     setEmailError("");
     setPasswordError("");
-
-    if ("" === email) {
-      setEmailError("Pleases enter your email.");
+    setUsernameError("");
+  
+    if ("" === email || "" === username) {
+      setEmailError("Please enter your email.");
       return;
     }
-
+  
     if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
       setEmailError("Please enter a valid email");
       return;
     }
-
+  
     if ("" === password) {
       setPasswordError("Please enter a password");
       return;
     }
-
+  
     if (password.length < 7) {
       setPasswordError("The password must be 8 characters or longer");
       return;
     }
-
-    setEmail(email);
-    setPassword(password);
-
-    //send to backend to check db for account then setLoggedIn(true);
+  
+    const newUser = {
+      username,
+      email,
+      password,
+    };
+  
     try {
-      const response = await axios.post("http://localhost:5000/register", {
-        email,
-        password,
-      });
-
+      const response = await axios.post("http://localhost:5000/register",
+        newUser);
+      
       if (response.status === 201) {
-        //Send user to login route
-        navigate("/login");
+        navigate("/");
       }
     } catch (error) {
       if (error.response) {
@@ -62,6 +66,7 @@ const Register = (props) => {
       }
     }
   };
+  
 
   return (
     <div className={"mainContainer"}>
@@ -73,8 +78,18 @@ const Register = (props) => {
           <br />
           <div className={"inputContainer"}>
             <input
+              value={username}
+              placeholder="username"
+              onChange={(ev) => setUsername(ev.target.value)}
+              className={"inputBox"}
+            />
+            <label className="errorLabel">{usernameError}</label>
+          </div>
+          <br />
+          <div className={"inputContainer"}>
+            <input
               value={email}
-              placeholder="Enter your email here"
+              placeholder="mail"
               onChange={(ev) => setEmail(ev.target.value)}
               className={"inputBox"}
             />
@@ -84,7 +99,7 @@ const Register = (props) => {
           <div className={"inputContainer"}>
             <input
               value={password}
-              placeholder="Enter your password here"
+              placeholder="password"
               onChange={(ev) => setPassword(ev.target.value)}
               className={"inputBox"}
             />

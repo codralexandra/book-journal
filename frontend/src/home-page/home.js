@@ -10,20 +10,26 @@ import welcomeImage from "../assets/welcome-image.png";
 const Home = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const navigate = useNavigate();
 
   const onButtonClick = async () => {
+    console.log("Login button clicked");
+    console.log("Username: ", username);
+    console.log("Email: ", email);
+    console.log("Password: ", password);
+
     setEmailError("");
     setPasswordError("");
 
-    if ("" === email) {
-      setEmailError("Please enter your email.");
+    if ("" === email && "" === username) {
+      setEmailError("Please enter your email/ username.");
       return;
     }
 
-    if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+    if (email && !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
       setEmailError("Please enter a valid email");
       return;
     }
@@ -33,17 +39,20 @@ const Home = (props) => {
       return;
     }
 
-    // Send to nodejs server to check the db for account
     try {
-      // Send POST request with email and password in the body
-      const response = await axios.post("http://localhost:5000/login", {
-        email,
+      const loginUser = {
+        username: username || null, 
+        email: email || null,
         password,
-      });
+      };
+
+      const response = await axios.post(
+        "http://localhost:5000/login",
+        loginUser
+      );
 
       if (response.status === 200) {
-        alert("Login successful!");
-        navigate("/home"); // Redirect on successful login
+        navigate("/home");
       } else {
         navigate("/register");
       }
@@ -56,10 +65,6 @@ const Home = (props) => {
     }
   };
 
-  const handleNavigate = (path) => {
-    navigate(path);
-  };
-
   return (
     <div className="mainContainer">
       <div className="contentContainer">
@@ -70,29 +75,44 @@ const Home = (props) => {
             </div>
           </div>
           <div className="formContainer">
-            <div className={"inputContainer"}>
-              <input
-                value={email}
-                placeholder="example@email.com"
-                onChange={(ev) => setEmail(ev.target.value)}
-                className={"inputBox"}
-              />
-              <label className="errorLabel">{emailError}</label>
+            <div className="formRow">
+              <p>Email or Username:</p>
+              <div className={"inputContainer"}>
+                <input
+                  value={username || email}
+                  placeholder="example_username / example@mail.com"
+                  onChange={(ev) => {
+                    const value = ev.target.value;
+                    if (/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(value)) {
+                      setEmail(value);
+                      setUsername("");
+                    } else {
+                      setUsername(value);
+                      setEmail("");
+                    }
+                  }}
+                  className={"inputBox"}
+                />
+                <label className="errorLabel">{emailError}</label>
+              </div>
             </div>
-            <div className={"inputContainer"}>
-              <input
-                type="password"
-                value={password}
-                placeholder="examplepassword123"
-                onChange={(ev) => setPassword(ev.target.value)}
-                className={"inputBox"}
-              />
-              <label className="errorLabel">{passwordError}</label>
+            <div className="formRow">
+              <p>Password:</p>
+              <div className={"inputContainer"}>
+                <input
+                  type="password"
+                  value={password}
+                  placeholder="examplepassword123"
+                  onChange={(ev) => setPassword(ev.target.value)}
+                  className={"inputBox"}
+                />
+                <label className="errorLabel">{passwordError}</label>
+              </div>
             </div>
           </div>
           <div className="buttonContainer">
             <input
-              className="inputButton"
+              className="loginButton inputButton"
               type="button"
               onClick={onButtonClick}
               value="Log in"
