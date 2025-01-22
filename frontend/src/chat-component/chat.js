@@ -27,11 +27,13 @@ const ChatComponent = () => {
       </Row>
       <Row className="chat-footer">
         <Col md={8}>
-          <Form.Control
-            type="text"
-            placeholder="Type a message..."
-            className="message-input"
-          />
+        <Form inline={true}>
+            <Form.Control
+              type="text"
+              placeholder="Type a message..."
+              className="message-input"
+            />
+          </Form>
         </Col>
         <Col md={4}>
           <Button variant="primary" className="send-button">

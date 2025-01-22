@@ -91,6 +91,9 @@ app.post("/login", async (req, res) => {
   }
 });
 
+//CHATROOM SOCKETS
+
+
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, "../frontend/build")));
