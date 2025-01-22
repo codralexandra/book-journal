@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -8,6 +8,10 @@ import "../assets/style.css";
 import welcomeImage from "../assets/welcome-image.png";
 
 const Home = (props) => {
+  useEffect(() => {
+    document.title = "Welcome to ShelfTalk - Home";
+  }, []);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");

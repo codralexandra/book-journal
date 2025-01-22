@@ -1,11 +1,18 @@
-import React from "react";
-import NavbarComponent from "../navbar/Nav";
+import React, {useEffect} from "react";
+import NavbarComponent from "../navbar-component/Nav";
+import ChatComponent from "../chat-component/chat";
 
 import "../assets/style.css";
 
 const Chat = (props) => {
+  useEffect(() => {
+        document.title = "Global Chatroom";
+      }, []);
   return (
-    <NavbarComponent />
+    <div id="chatPage">
+      <NavbarComponent />
+      <ChatComponent />
+    </div>
   );
 };
 
