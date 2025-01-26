@@ -44,13 +44,11 @@
 
 .message.received {
   background-color: #e9ecef;
-  align-self: flex-start;
 }
 
 .message.sent {
   background-color: #43a154;
   color: white;
-  align-self: flex-end;
 }
 
 .chat-footer {
@@ -68,4 +66,27 @@
 .send-button {
   width: 20%;
   background-color: #43a154;
+}
+
+.sender-info{
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin-top: 4px;
+  text-align: left;
+  font-style: italic;
+}
+
+.message-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.message-container.sent {
+  align-items: flex-end;
+}
+
+.message-container.sent .sender-info {
+  text-align: right;
 }

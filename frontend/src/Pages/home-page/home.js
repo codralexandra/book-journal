@@ -45,7 +45,7 @@ const Home = (props) => {
 
     try {
       const loginUser = {
-        username: username || null, 
+        username: username || null,
         email: email || null,
         password,
       };
@@ -56,6 +56,8 @@ const Home = (props) => {
       );
 
       if (response.status === 200) {
+        const loggedInUsername = response.data.username;
+        localStorage.setItem("username", loggedInUsername);
         navigate("/home");
       } else {
         navigate("/register");
