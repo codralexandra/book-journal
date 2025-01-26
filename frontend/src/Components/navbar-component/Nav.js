@@ -1,23 +1,16 @@
 import React from "react";
-
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-
+import Search from "../search-form-component/Search"; // Import Search component
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-
 import logoImage from "../../assets/logo.png";
-
 import "./nav.css";
 
-const NavbarComponent = () => {
-    return(
+const NavbarComponent = ({ onSearch, setLoading }) => {
+  return (
     <Navbar expand="lg" className="navbar-custom">
       <Container>
         <Navbar.Brand href="/home">
@@ -63,25 +56,11 @@ const NavbarComponent = () => {
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
-        <Form inline={true}>
-          <Row>
-            <Col xs="auto">
-              <Form.Control
-                type="text"
-                placeholder="Find books..."
-                className="search-form"
-              />
-            </Col>
-            <Col xs="auto">
-              <Button id="search-button" type="submit">
-                <i className="bi bi-search"></i>
-              </Button>
-            </Col>
-          </Row>
-        </Form>
+        {/* Pass setLoading to Search */}
+        <Search onSearch={onSearch} setLoading={setLoading} />
       </Container>
     </Navbar>
-    );
+  );
 };
 
 export default NavbarComponent;

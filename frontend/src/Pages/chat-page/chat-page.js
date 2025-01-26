@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import NavbarComponent from "../../Components/navbar-component/Nav";
-import ChatComponent from "../../Components/chat-component/chat";
+import ChatComponent from "../../Components/chat-component/Chat";
 
 import "../../assets/style.css";
 

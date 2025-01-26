@@ -115,3 +115,29 @@ input{
     font-size: 20px;
     color: #9d9d9d;
 }
+
+.book-card {
+  height: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.book-card img {
+  height: 300px;
+  width: 100%;
+  object-fit: cover;
+}
+.pageButton{
+  background-color: #43a154;
+  border: transparent;
+}
+
+.pageButton:hover{
+  background-color: #2b6836;
+}
+
+.pageButton:disabled{
+  background-color: #9d9d9d;
+}
