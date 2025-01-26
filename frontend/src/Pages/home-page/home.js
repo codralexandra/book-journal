@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 import "../../assets/style.css";
 
 import welcomeImage from "../../assets/welcome-image.png";
+
+import axios from "axios";
 
 const Home = (props) => {
   useEffect(() => {

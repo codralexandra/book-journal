@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import NavbarComponent from "../../Components/navbar-component/Nav";
 import BookSearch from "../../Components/book-search-component/BookSearch";
 
-const Home = () => {
+const MainPage = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState("");
@@ -61,4 +61,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default MainPage;
