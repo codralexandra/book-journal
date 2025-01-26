@@ -9,21 +9,28 @@ const Search = ({ onSearch, setLoading }) => {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    console.log("Searching for:", query);
+    console.log("Typed in searchbar:", query);
     if (!query) return;
-  
+
     setLoading(true);
-  
+
     try {
-      const response = await fetch(`https://openlibrary.org/search.json?title=${query}`);
+      const response = await fetch(`https://openlibrary.org/search.json?title=${query}&page=1`);
       const data = await response.json();
-  
+
       console.log("API Response:", data);
-      
+
       if (data && data.docs) {
-        onSearch(data.docs);
+        const books = data.docs.map((book) => ({
+          id: book.key,
+          title: book.title,
+          author: book.author_name ? book.author_name.join(", ") : "Unknown Author",
+          cover: book.cover_i ? `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg` : null,
+        }));
+
+        onSearch(books); 
       }
-  
+
       setLoading(false);
     } catch (error) {
       console.error("Error fetching book data:", error);

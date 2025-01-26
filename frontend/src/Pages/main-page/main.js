@@ -16,22 +16,13 @@ const Home = () => {
     document.title = "Welcome to ShelfTalk - Main";
   }, []);
 
-  const handleSearch = async (searchQuery) => {
-    setLoading(true); // Show loading spinner
-    setQuery(searchQuery);
+  const handleSearch = (bookIds) => {
+    setLoading(true);
+    setQuery(query);
     setPage(1);
-    try {
-      const response = await fetch(
-        `https://openlibrary.org/search.json?title=${searchQuery}&page=1`
-      );
-      const data = await response.json();
-      setSearchResults(data.docs);
-      setTotalResults(data.num_found);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    } finally {
-      setLoading(false); // Hide loading spinner after results are fetched
-    }
+    setSearchResults(bookIds);
+    setTotalResults(bookIds.length);
+    setLoading(false);
   };
 
   const handlePageChange = (newPage) => {
@@ -41,10 +32,8 @@ const Home = () => {
 
   return (
     <div id="mainPage">
-      {/* Pass setLoading directly to NavbarComponent */}
       <NavbarComponent onSearch={handleSearch} setLoading={setLoading} />
 
-      {/* Show loading spinner while fetching data */}
       {loading && (
         <div className="d-flex justify-content-center mt-5">
           <div className="spinner-border" role="status">
@@ -53,14 +42,12 @@ const Home = () => {
         </div>
       )}
 
-      {/* If no search results and not loading */}
       {!loading && searchResults.length === 0 && (
         <div className="text-center mt-5">
           <h4>Search result will appear here</h4>
         </div>
       )}
 
-      {/* Display search results when not loading */}
       {!loading && searchResults.length > 0 && (
         <BookSearch
           books={searchResults}

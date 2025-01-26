@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import Search from "../search-form-component/Search"; // Import Search component
+import Search from "../search-form-component/Search";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import logoImage from "../../assets/logo.png";
@@ -56,7 +56,6 @@ const NavbarComponent = ({ onSearch, setLoading }) => {
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
-        {/* Pass setLoading to Search */}
         <Search onSearch={onSearch} setLoading={setLoading} />
       </Container>
     </Navbar>

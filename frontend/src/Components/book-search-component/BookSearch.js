@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -6,12 +6,11 @@ import { Button } from "react-bootstrap";
 import defaultCover from "../../assets/default-cover.jpg";
 
 const BookSearch = ({ books, loading }) => {
-  const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 8;
-  const totalPages = Math.ceil(books.length / resultsPerPage);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const handlePageChange = (newPage) => {
-    if (newPage < 1 || newPage > totalPages) return;
+    if (newPage < 1 || newPage > Math.ceil(books.length / resultsPerPage)) return;
     setCurrentPage(newPage);
   };
 
@@ -22,20 +21,20 @@ const BookSearch = ({ books, loading }) => {
   return (
     <div>
       {!loading && books.length > 0 && (
-        <div className="mt-4">
+        <div className="bookDisplay">
           <Row className="g-4">
             {currentResults.map((book, index) => (
               <Col xs={12} md={6} lg={3} key={index}>
                 <Card className="book-card">
                   <Card.Img
                     variant="top"
-                    src={book.cover_i ? `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg` : defaultCover}
+                    src={book.cover ? book.cover : defaultCover}
                     alt={book.title}
                   />
                   <Card.Body>
                     <Card.Title>{book.title}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">
-                      {book.author_name ? book.author_name.join(", ") : "Unknown Author"}
+                      {book.author || "Unknown Author"}
                     </Card.Subtitle>
                   </Card.Body>
                 </Card>
@@ -43,25 +42,41 @@ const BookSearch = ({ books, loading }) => {
             ))}
           </Row>
 
-          {totalPages > 1 && (
-            <div className="d-flex justify-content-center mt-4">
-              <Button className="pageButton"
-                disabled={currentPage <= 1}
-                onClick={() => handlePageChange(currentPage - 1)}
-              >
-                Previous
-              </Button> 
-              <span className="mx-2">
-                Page {currentPage} of {totalPages}
-              </span>
-              <Button className="pageButton"
-                disabled={currentPage >= totalPages}
-                onClick={() => handlePageChange(currentPage + 1)}
-              >
-                Next
-              </Button>
-            </div>
-          )}
+          <div className="d-flex justify-content-center mt-4">
+            <Button
+              className="pageButton"
+              disabled={currentPage <= 1}
+              onClick={() => handlePageChange(currentPage - 1)}
+            >
+              Previous
+            </Button>
+            <span className="mx-2">
+              Page {currentPage} of {Math.ceil(books.length / resultsPerPage)}
+            </span>
+            <Button
+              className="pageButton"
+              disabled={currentPage >= Math.ceil(books.length / resultsPerPage)}
+              onClick={() => handlePageChange(currentPage + 1)}
+            >
+              Next
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {/* Show loading spinner while fetching book details */}
+      {loading && (
+        <div className="d-flex justify-content-center mt-5">
+          <div className="spinner-border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      )}
+
+      {/* If no books found or error occurs */}
+      {!loading && books.length === 0 && (
+        <div className="text-center mt-5">
+          <h4>No books found.</h4>
         </div>
       )}
     </div>
