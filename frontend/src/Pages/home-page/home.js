@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-import "../assets/style.css";
+import "../../assets/style.css";
 
-import welcomeImage from "../assets/welcome-image.png";
+import welcomeImage from "../../assets/welcome-image.png";
 
 const Home = (props) => {
   useEffect(() => {

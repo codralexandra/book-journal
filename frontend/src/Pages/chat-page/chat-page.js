@@ -1,8 +1,8 @@
 import React, {useEffect} from "react";
-import NavbarComponent from "../navbar-component/Nav";
-import ChatComponent from "../chat-component/chat";
+import NavbarComponent from "../../Components/navbar-component/Nav";
+import ChatComponent from "../../Components/chat-component/chat";
 
-import "../assets/style.css";
+import "../../assets/style.css";
 
 const Chat = (props) => {
   useEffect(() => {

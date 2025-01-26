@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import NavbarComponent from '../navbar-component/Nav.js';
+import NavbarComponent from "../../Components/navbar-component/Nav";
 
 const Home = () => {
   useEffect(() => {

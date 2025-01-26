@@ -1,10 +1,10 @@
 import { BrowserRouter, Form, Route, Routes } from 'react-router-dom';
 
-import Home from './home-page/home';
-import Register from './register-page/register';
-import Main from './main-page/main';
-import Chat from './chat-page/chat-page';
-import MyBooks from './my-books-page/my-books';
+import Home from './Pages/home-page/home';
+import Register from './Pages/register-page/register';
+import Main from './Pages/main-page/main';
+import Chat from './Pages/chat-page/chat-page';
+import MyBooks from './Pages/my-books-page/my-books';
 
 import './App.css';
 

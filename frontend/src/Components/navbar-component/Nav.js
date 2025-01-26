@@ -12,7 +12,7 @@ import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
-import logoImage from "../assets/logo.png";
+import logoImage from "../../assets/logo.png";
 
 import "./nav.css";
 

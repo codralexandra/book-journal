@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import User from "../models/User.js"
 import axios from "axios";
 
-import "../assets/style.css";
+import "../../assets/style.css";
 import "./register.css";
 
 const Register = (props) => {
