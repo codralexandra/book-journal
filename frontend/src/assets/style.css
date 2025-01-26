@@ -146,15 +146,21 @@ input{
 .book-card .card-body {
   flex-grow: 1;             
 }
-.pageButton{
+
+.bookDisplay .pageButton{
   background-color: #43a154;
   border: transparent;
 }
 
-.pageButton:hover{
+.bookDisplay .pageButton:hover{
   background-color: #2b6836;
 }
 
-.pageButton:disabled{
+.bookDisplay .pageButton:disabled{
   background-color: #9d9d9d;
+}
+
+.bookDisplay .pageButton:active{
+  background-color: #1e4d2a;
+
 }

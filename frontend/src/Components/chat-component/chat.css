@@ -19,6 +19,7 @@
   padding: 10px;
   overflow-y: auto;
   background-color: #ffffff;
+  max-height: calc(100vh - 160px);
 }
 
 .chat-sidebar {
@@ -66,6 +67,11 @@
 .send-button {
   width: 20%;
   background-color: #43a154;
+  border: transparent;
+}
+
+.send-button:hover {
+  background-color: #2b6836;
 }
 
 .sender-info{
