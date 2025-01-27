@@ -7,9 +7,14 @@ import Search from "../search-form-component/Search";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import logoImage from "../../assets/logo.png";
+import { useLocation } from "react-router-dom";
 import "./nav.css";
 
 const NavbarComponent = ({ onSearch, setLoading }) => {
+  const location = useLocation();
+  const isGenrePage = location.pathname === "/genre";
+  const isChatPage = location.pathname === "/chat";
+
   return (
     <Navbar expand="lg" className="navbar-custom">
       <Container>
@@ -56,7 +61,7 @@ const NavbarComponent = ({ onSearch, setLoading }) => {
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
-        <Search onSearch={onSearch} setLoading={setLoading} />
+        {(!isGenrePage && !isChatPage) && <Search onSearch={onSearch} setLoading={setLoading} />}
       </Container>
     </Navbar>
   );
