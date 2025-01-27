@@ -63,6 +63,8 @@ npm test
 ![Main page](/screenshots/main-page.png)
 4. Global chat <br />
 ![Global chat](/screenshots/chat-room.png)
+5. My Books <br />
+![My Books](/screenshots/my-books.png)
 
 <br />
 Here is the demo app pitch <a href="https://www.canva.com/design/DAGZNq5ytaw/tb4IvFt8mC917Up46YKNkQ/edit?utm_content=DAGZNq5ytaw&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton">presentation</a> with a full rundown of all the functionalities (I will someday get to implement). 
