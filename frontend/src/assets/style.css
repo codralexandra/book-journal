@@ -161,6 +161,5 @@ input{
 }
 
 .bookDisplay .pageButton:active{
-  background-color: #1e4d2a;
-
+  background-color: #2b6836;
 }

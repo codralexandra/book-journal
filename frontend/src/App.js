@@ -5,6 +5,7 @@ import Register from './Pages/register-page/register';
 import Main from './Pages/main-page/main';
 import Chat from './Pages/chat-page/chat-page';
 import MyBooks from './Pages/my-books-page/my-books';
+import Genre from './Pages/genre-page/genre';
 
 import './App.css';
 
@@ -27,6 +28,7 @@ function App() {
           <Route path="/home" element={<Main email={email} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} />
           <Route path="/my-books" element={<MyBooks />}/>
           <Route path="/chat" element={<Chat />}/>
+          <Route path="/genre" element={<Genre />} />
         </Routes>
       </BrowserRouter>
     </div>

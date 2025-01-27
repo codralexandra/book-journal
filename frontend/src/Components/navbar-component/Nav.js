@@ -33,19 +33,19 @@ const NavbarComponent = ({ onSearch, setLoading }) => {
               About
             </Nav.Link>
             <NavDropdown title="Browse" id="basic-nav-dropdown">
-              <NavDropdown.Item className="navbar-dd-item" href="">
+              <NavDropdown.Item className="navbar-dd-item" href="/genre?genre=Fantasy">
                 Fantasy
               </NavDropdown.Item>
-              <NavDropdown.Item className="navbar-dd-item" href="">
+              <NavDropdown.Item className="navbar-dd-item" href="/genre?genre=Romance">
                 Romance
               </NavDropdown.Item>
-              <NavDropdown.Item className="navbar-dd-item" href="">
+              <NavDropdown.Item className="navbar-dd-item" href="/genre?genre=Sci-fi">
                 Sci-fi
               </NavDropdown.Item>
-              <NavDropdown.Item className="navbar-dd-item" href="">
+              <NavDropdown.Item className="navbar-dd-item" href="/genre?genre=Crime">
                 Crime
               </NavDropdown.Item>
-              <NavDropdown.Item className="navbar-dd-item" href="">
+              <NavDropdown.Item className="navbar-dd-item" href="/genre?genre=Thriller">
                 Thriller
               </NavDropdown.Item>
             </NavDropdown>

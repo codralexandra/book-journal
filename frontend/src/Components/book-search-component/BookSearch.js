@@ -1,9 +1,8 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Button } from "react-bootstrap";
-
 import defaultCover from "../../assets/default-cover.jpg";
 
 const BookSearch = ({ books, loading }) => {
@@ -65,7 +64,6 @@ const BookSearch = ({ books, loading }) => {
         </div>
       )}
 
-      {/* Show loading spinner while fetching book details */}
       {loading && (
         <div className="d-flex justify-content-center mt-5">
           <div className="spinner-border" role="status">
@@ -74,7 +72,6 @@ const BookSearch = ({ books, loading }) => {
         </div>
       )}
 
-      {/* If no books found or error occurs */}
       {!loading && books.length === 0 && (
         <div className="text-center mt-5">
           <h4>No books found.</h4>
