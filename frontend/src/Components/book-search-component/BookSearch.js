@@ -12,13 +12,13 @@ const BookSearch = ({ books, loading }) => {
 
   const handleAddToMyBooks = async (book) => {
     const username = localStorage.getItem("username");
-  
+
     try {
       const response = await axios.post("http://localhost:5000/my-books/add", {
         username,
         book,
       });
-  
+
       if (response.status === 200) {
         alert("Book added to your collection!");
       } else {
@@ -31,7 +31,8 @@ const BookSearch = ({ books, loading }) => {
   };
 
   const handlePageChange = (newPage) => {
-    if (newPage < 1 || newPage > Math.ceil(books.length / resultsPerPage)) return;
+    if (newPage < 1 || newPage > Math.ceil(books.length / resultsPerPage))
+      return;
     setCurrentPage(newPage);
   };
 
@@ -57,7 +58,17 @@ const BookSearch = ({ books, loading }) => {
                     <Card.Subtitle className="mb-2 text-muted">
                       {book.author || "Unknown Author"}
                     </Card.Subtitle>
-                    <Button onClick={() => handleAddToMyBooks(book)}>Add to My Books</Button>
+                    <div className="cardButtons">
+                      <Button
+                        className="cardActionButton addButton"
+                        onClick={() => handleAddToMyBooks(book)}
+                      >
+                        <i className="bi bi-plus-circle"></i>
+                      </Button>
+                      <Button className="cardActionButton infoButton">
+                        <i className="bi bi-info-circle"></i>
+                      </Button>
+                    </div>
                   </Card.Body>
                 </Card>
               </Col>

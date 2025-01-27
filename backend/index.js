@@ -218,6 +218,52 @@ app.get("/my-books", async (req, res) => {
   }
 });
 
+// SET FAVORITE BOOK
+app.post("/my-books/favorite", async (req, res) => {
+  const { username, bookId } = req.body;
+
+  try {
+    const user = await UserSchema.findOne({ username });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const book = user.myBooks.find((b) => b.id === bookId);
+    if (!book) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+
+    book.favorite = true;
+    await user.save();
+    res.status(200).json({ message: "Book marked as favorite", myBooks: user.myBooks });
+  } catch (error) {
+    res.status(500).json({ message: "Error setting favorite", error });
+  }
+});
+
+// SET READ BOOK
+app.post("/my-books/read", async (req, res) => {
+  const { username, bookId } = req.body;
+
+  try {
+    const user = await UserSchema.findOne({ username });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const book = user.myBooks.find((b) => b.id === bookId);
+    if (!book) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+
+    book.read = true;
+    await user.save();
+    res.status(200).json({ message: "Book marked as read", myBooks: user.myBooks });
+  } catch (error) {
+    res.status(500).json({ message: "Error setting read status", error });
+  }
+});
+
 // FRONTEND FILES
 app.use(express.static(path.join(__dirname, "../frontend/build")));
 app.get("*", (req, res) => {

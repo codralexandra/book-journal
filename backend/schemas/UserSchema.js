@@ -21,6 +21,8 @@ const userSchema = new mongoose.Schema({
           title: { type: String, required: true },
           author: { type: String },
           cover: { type: String },
+          read: { type: Boolean, default: false },
+          favorite: { type: Boolean, default: false },
         },
       ],
 });

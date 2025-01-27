@@ -187,3 +187,27 @@ input{
   background-color: #24582e;
 
 }
+
+.cardButtons .infoButton{
+  background-color: #828d84;
+}
+
+.cardButtons .infoButton:hover{
+  background-color: #626462;
+}
+
+.cardButtons .removeButton{
+  background-color: #f74e4e;
+}
+
+.cardButtons .removeButton:hover{
+  background-color: #b73d3d;
+}
+
+.cardButtons .favoriteButton{
+  background-color: #ef8ab7;
+}
+
+.cardButtons .favoriteButton:hover{
+  background-color: #a85b7e;
+}
