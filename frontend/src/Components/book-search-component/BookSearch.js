@@ -65,9 +65,11 @@ const BookSearch = ({ books, loading }) => {
                       >
                         <i className="bi bi-plus-circle"></i>
                       </Button>
-                      <Button className="cardActionButton infoButton">
-                        <i className="bi bi-info-circle"></i>
-                      </Button>
+                      <a target="_blank" href={book.link}>
+                        <Button className="cardActionButton infoButton">
+                          <i className="bi bi-info-circle"></i>
+                        </Button>
+                      </a>
                     </div>
                   </Card.Body>
                 </Card>

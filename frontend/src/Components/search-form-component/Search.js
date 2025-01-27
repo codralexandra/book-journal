@@ -26,6 +26,7 @@ const Search = ({ onSearch, setLoading }) => {
           title: book.title,
           author: book.author_name ? book.author_name.join(", ") : "Unknown Author",
           cover: book.cover_i ? `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg` : null,
+          link: `https://openlibrary.org${book.key}`,
         }));
 
         onSearch(books); 
