@@ -44,7 +44,7 @@ const MainPage = () => {
 
       {!loading && searchResults.length === 0 && (
         <div className="text-center mt-5">
-          <h4>Search result will appear here</h4>
+          <h4>Search results will appear here</h4>
         </div>
       )}
 
