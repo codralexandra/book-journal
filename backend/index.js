@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const UserSchema = require("./schemas/UserSchema");
+const User = require("./models/User");
 const cors = require("cors");
 const path = require("path");
 require("dotenv").config();
@@ -35,12 +36,10 @@ let connectedUsers = {};
 wss.on("connection", function (ws) {
   let currentUser = null;
 
-  // When a message is received
   ws.on("message", function (data) {
     const parsedData = JSON.parse(data);
     const { type, message, username } = parsedData;
 
-    // User joining the WebSocket connection
     if (type === "join") {
       if (!username) {
         ws.send(JSON.stringify({ type: "error", msg: "Username is required" }));
@@ -54,21 +53,18 @@ wss.on("connection", function (ws) {
       }
     }
 
-    // Chat message handling
     if (type === "chat") {
       if (currentUser) {
         broadcastMessage({ username: currentUser, message });
       }
     }
 
-    // User leaving
     if (type === "leave" && currentUser) {
       delete connectedUsers[currentUser];
       broadcastUserList();
     }
   });
 
-  // Connection close handler
   ws.on("close", function () {
     if (currentUser) {
       delete connectedUsers[currentUser];
@@ -76,7 +72,6 @@ wss.on("connection", function (ws) {
     }
   });
 
-  // Broadcast the list of connected users to all
   function broadcastUserList() {
     const users = Object.keys(connectedUsers);
     const userListData = JSON.stringify({ type: "userList", users });
@@ -85,7 +80,6 @@ wss.on("connection", function (ws) {
     }
   }
 
-  // Broadcast a chat message to all connected users
   function broadcastMessage({ username, message }) {
     const chatMessageData = JSON.stringify({
       type: "message",
@@ -162,8 +156,67 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// BOOK SEARCH 
+// ADD BOOK
+app.post("/my-books/add", async (req, res) => {
+  const { username, book } = req.body;
 
+  try {
+    if (!username || !book) {
+      return res.status(400).json({ message: "Username and book are required" });
+    }
+
+    const user = await UserSchema.findOne({ username });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const alreadyAdded = user.myBooks.some((b) => b.id === book.id);
+    if (alreadyAdded) {
+      return res.status(400).json({ message: "Book already added" });
+    }
+
+    user.myBooks.push(book);
+    await user.save();
+    res.status(200).json({ message: "Book added to collection", myBooks: user.myBooks });
+  } catch (error) {
+    console.error("Error adding book:", error);
+    res.status(500).json({ message: "Internal Server Error", error });
+  }
+});
+
+// REMOVE BOOK
+app.post("/my-books/remove", async (req, res) => {
+  const { username, bookId } = req.body;
+
+  try {
+    const user = await UserSchema.findOne({ username });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.myBooks = user.myBooks.filter((b) => b.id !== bookId);
+    await user.save();
+    res.status(200).json({ message: "Book removed from collection", myBooks: user.myBooks });
+  } catch (error) {
+    res.status(500).json({ message: "Error removing book", error });
+  }
+});
+
+// FETCH BOOKS
+app.get("/my-books", async (req, res) => {
+  const { username } = req.query;
+
+  try {
+    const user = await UserSchema.findOne({ username });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json(user.myBooks);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching collection", error });
+  }
+});
 
 // FRONTEND FILES
 app.use(express.static(path.join(__dirname, "../frontend/build")));

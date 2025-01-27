@@ -14,7 +14,15 @@ const userSchema = new mongoose.Schema({
     password:{
         type: String,
         required: true,
-    }
+    },
+    myBooks: [
+        {
+          id: { type: String, required: true },
+          title: { type: String, required: true },
+          author: { type: String },
+          cover: { type: String },
+        },
+      ],
 });
 
 const UserSchema = mongoose.model('UserSchema', userSchema);

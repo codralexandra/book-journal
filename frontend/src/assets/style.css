@@ -163,3 +163,27 @@ input{
 .bookDisplay .pageButton:active{
   background-color: #2b6836;
 }
+
+.myBooksPage .title {
+  padding-top: 20px;
+}
+
+.cardButtons{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.cardButtons .cardActionButton{
+  cursor: pointer;
+  border: transparent;
+  border-radius: 20px;
+  background-color: #43a154;
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.cardButtons .cardActionButton:hover{
+  background-color: #24582e;
+
+}

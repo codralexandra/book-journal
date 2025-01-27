@@ -4,10 +4,31 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Button } from "react-bootstrap";
 import defaultCover from "../../assets/default-cover.jpg";
+import axios from "axios";
 
 const BookSearch = ({ books, loading }) => {
   const resultsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1);
+
+  const handleAddToMyBooks = async (book) => {
+    const username = localStorage.getItem("username");
+  
+    try {
+      const response = await axios.post("http://localhost:5000/my-books/add", {
+        username,
+        book,
+      });
+  
+      if (response.status === 200) {
+        alert("Book added to your collection!");
+      } else {
+        alert(response.data.message || "Failed to add book");
+      }
+    } catch (error) {
+      console.error("Error adding book:", error);
+      alert(error.response?.data?.message || "An error occurred");
+    }
+  };
 
   const handlePageChange = (newPage) => {
     if (newPage < 1 || newPage > Math.ceil(books.length / resultsPerPage)) return;
@@ -36,6 +57,7 @@ const BookSearch = ({ books, loading }) => {
                     <Card.Subtitle className="mb-2 text-muted">
                       {book.author || "Unknown Author"}
                     </Card.Subtitle>
+                    <Button onClick={() => handleAddToMyBooks(book)}>Add to My Books</Button>
                   </Card.Body>
                 </Card>
               </Col>

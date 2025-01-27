@@ -12,8 +12,7 @@ import "./nav.css";
 
 const NavbarComponent = ({ onSearch, setLoading }) => {
   const location = useLocation();
-  const isGenrePage = location.pathname === "/genre";
-  const isChatPage = location.pathname === "/chat";
+  const isMainPage = location.pathname === "/home";
 
   return (
     <Navbar expand="lg" className="navbar-custom">
@@ -61,7 +60,7 @@ const NavbarComponent = ({ onSearch, setLoading }) => {
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
-        {(!isGenrePage && !isChatPage) && <Search onSearch={onSearch} setLoading={setLoading} />}
+        {isMainPage && <Search onSearch={onSearch} setLoading={setLoading} />}
       </Container>
     </Navbar>
   );

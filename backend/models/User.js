@@ -2,6 +2,7 @@ class User{
     username;
     #email="";
     #password="";
+    myBooks = [];
 
     constructor(username,email,password){
         this.username = username;
@@ -11,6 +12,10 @@ class User{
 
     get username(){
         return this.username;
+    }
+
+    get myBooks(){
+        return this.myBooks;
     }
 }
 
